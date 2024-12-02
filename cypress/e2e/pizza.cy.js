@@ -1,6 +1,6 @@
 describe('Order Form Test', () => {
   it('should navigate to order form and complete the order process', () => {
-    // Home sayfasına git
+   
     cy.visit('http://localhost:5173');
 
     cy.get('.giris-btn').click();
