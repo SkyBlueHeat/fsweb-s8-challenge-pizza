@@ -73,6 +73,7 @@ export default function MainContent() {
               </h2>
               <p>Posisyone ebsoluşın acı yok burger</p>
               <button onClick={handleClick} className="btnburak">
+              <button onClick={handleClick} className="order-button">
                 SİPARİŞ VER
               </button>
             </div>
@@ -84,6 +85,7 @@ export default function MainContent() {
                 Burger Menü
               </h4>
               <button onClick={handleClick} className="btnburak">
+              <button onClick={handleClick} className="order-button">
                 SİPARİŞ VER
               </button>
             </div>
@@ -93,6 +95,7 @@ export default function MainContent() {
                 npm gibi kurye
               </h4>
               <button onClick={handleClick} className="btnburak">
+              <button onClick={handleClick} className="order-button">
                 SİPARİŞ VER
               </button>
             </div>
