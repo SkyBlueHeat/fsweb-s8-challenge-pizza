@@ -33,6 +33,8 @@ const initialErrors = {
 const errorMessages = {
   isim: "İsim en az 3 karakter içermelidir.",
   "ek-malzeme": "En az 4 seçim yapmalısınız.",
+  boyut: "Boyut seçimi zorunludur.",
+  hamur: "Hamur seçimi zorunludur.",
 };
 
 const pizza_ucreti = 85.5;
@@ -62,96 +64,71 @@ function SiparisFormu({ setUserChoices }) {
   const [pieces, setpieces] = useState(1);
 
   useEffect(() => {
-    if (
-      siparis.boyut !== "" &&
-      siparis.hamur !== "" &&
-      siparis.isim.length >= 3 &&
-      siparis["ek-malzeme"].length >= 4
-    ) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      "ek-malzeme":
+        siparis["ek-malzeme"].length >= 4
+          ? ""
+          : errorMessages["ek-malzeme"],
+    }));
 
-    if (siparis["ek-malzeme"].length >= 4) {
-      setErrors({ ...errors, ["ek-malzeme"]: "" });
-    } else {
-      setErrors({ ...errors, ["ek-malzeme"]: errorMessages["ek-malzeme"] });
-    }
+    setIsValid(
+      siparis.boyut !== "" &&
+        siparis.hamur !== "" &&
+        siparis.isim.length >= 3 &&
+        siparis["ek-malzeme"].length >= 4
+    );
   }, [siparis]);
 
   const countHandler = (event) => {
     const { id } = event.target;
-    if (id === "cikar") {
-      if (pieces == 1) {
-        setpieces(1);
-      } else {
-        setpieces((pieces) => pieces - 1);
-      }
-    } else if (id === "ekle") {
-      setpieces((pieces) => pieces + 1);
-    }
+    setpieces((prevPieces) =>
+      id === "cikar" ? Math.max(prevPieces - 1, 1) : prevPieces + 1
+    );
   };
 
   function handleInputChange(event) {
     let { name, value } = event.target;
 
-    if (name === "ek-malzeme") {
-      if (siparis["ek-malzeme"].includes(value)) {
-        setSiparis({
+    name === "ek-malzeme"
+      ? setSiparis({
           ...siparis,
-          [name]: siparis["ek-malzeme"].filter((malzeme) => malzeme !== value),
-        });
-      } else {
-        setSiparis({
-          ...siparis,
-          [name]: [...siparis["ek-malzeme"], value],
-        });
-      }
-    } else {
-      setSiparis({ ...siparis, [name]: value });
-    }
+          [name]: siparis["ek-malzeme"].includes(value)
+            ? siparis["ek-malzeme"].filter((malzeme) => malzeme !== value)
+            : [...siparis["ek-malzeme"], value],
+        })
+      : setSiparis({ ...siparis, [name]: value });
 
-    if (name === "isim") {
-      if (value.length >= 3) {
-        setErrors({ ...errors, [name]: "" });
-      } else {
-        setErrors({ ...errors, [name]: errorMessages.isim });
-      }
-    }
-
-    if (name === "boyut" || name === "hamur") {
-      if (siparis.boyut !== "") {
-        setErrors({ ...errors, [name]: "" });
-      } else {
-        setErrors({ ...errors, [name]: errorMessages.boyut });
-      }
-    }
+    name === "isim"
+      ? setErrors({
+          ...errors,
+          [name]: value.length >= 3 ? "" : errorMessages.isim,
+        })
+      : name === "boyut" || name === "hamur"
+      ? setErrors({
+          ...errors,
+          [name]: value !== "" ? "" : errorMessages[name],
+        })
+      : null;
   }
 
   siparis.secimler = siparis["ek-malzeme"].length * 5;
   siparis.toplam_ucret = pieces * (siparis.secimler + pizza_ucreti);
+
   let history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    if (!isValid) {
-      return;
-    } else {
-      history.push("/siparis-ozeti");
-    }
+    if (!isValid) return;
 
     axios
       .post("https://reqres.in/api/pizza", siparis)
       .then((response) => {
         console.log("RESPONSE", response.data);
         setUserChoices(response.data);
-        console.log(response);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.error("Error:", error));
+    history.push("/siparis-ozeti");
   };
 
   return (
@@ -188,12 +165,19 @@ function SiparisFormu({ setUserChoices }) {
           <div className="ek-malzemeler">
             <h3>Ek Malzemeler</h3>
             <p>En az 4 adet ve en fazla 10 adet seçim yapabilirsiniz. 5₺</p>
+            {siparis["ek-malzeme"].length === 10 && (
+              <p className="warning-message">
+                Maksimum 10 malzeme seçebilirsiniz!
+              </p>
+            )}
             <div className="malzemos">
               {ekMalzemeler.map((malzeme, index) => {
                 return (
                   <EkMalzemeler
                     className={
-                      index >= 10 ? "data-cy-disabled" : "data-cy-not-disabled"
+                      index >= 10
+                        ? "data-cy-disabled"
+                        : "data-cy-not-disabled"
                     }
                     key={index}
                     disabled={
@@ -225,9 +209,7 @@ function SiparisFormu({ setUserChoices }) {
             handleInputChange={countHandler}
             pieces={pieces}
             ekMalzemeHesabi={siparis["ek-malzeme"].length * 5}
-            toplamHesap={
-              (pizza_ucreti + siparis["ek-malzeme"].length * 5) * pieces
-            }
+            toplamHesap={siparis.toplam_ucret}
             disabled={!isValid}
             onClick={handleSubmit}
           />
