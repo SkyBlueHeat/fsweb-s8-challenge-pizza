@@ -1,4 +1,4 @@
-function SiparisFormuInfo() {
+function Info() {
     return (
         <>
         <div className="content-div">
@@ -23,5 +23,5 @@ function SiparisFormuInfo() {
     );
   }
   
-  export default SiparisFormuInfo;
+  export default Info;
   

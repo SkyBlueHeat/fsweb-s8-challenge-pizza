@@ -1,4 +1,4 @@
-function SiparisFormuHeader() {
+function Header() {
   return (
     <div className="order-form-header">
         <img src="./Assets/iteration-1-assets/logo.svg" />
@@ -7,4 +7,4 @@ function SiparisFormuHeader() {
   );
 }
 
-export default SiparisFormuHeader;
+export default Header;
