@@ -72,7 +72,6 @@ export default function MainContent() {
                 Lezzetus
               </h2>
               <p>Posisyone ebsoluşın acı yok burger</p>
-              <button onClick={handleClick} className="btnburak">
               <button onClick={handleClick} className="order-button">
                 SİPARİŞ VER
               </button>
@@ -84,7 +83,6 @@ export default function MainContent() {
                 Dechatlon <br />
                 Burger Menü
               </h4>
-              <button onClick={handleClick} className="btnburak">
               <button onClick={handleClick} className="order-button">
                 SİPARİŞ VER
               </button>
@@ -94,7 +92,6 @@ export default function MainContent() {
                 <span>Çoooook hızlı</span> <br />
                 npm gibi kurye
               </h4>
-              <button onClick={handleClick} className="btnburak">
               <button onClick={handleClick} className="order-button">
                 SİPARİŞ VER
               </button>
