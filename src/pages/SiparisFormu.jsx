@@ -62,71 +62,51 @@ function SiparisFormu({ setUserChoices }) {
   const [pieces, setpieces] = useState(1);
 
   useEffect(() => {
-    if (
+    setIsValid(
       siparis.boyut !== "" &&
       siparis.hamur !== "" &&
       siparis.isim.length >= 3 &&
       siparis["ek-malzeme"].length >= 4
-    ) {
-      setIsValid(true);
-    } else {
-      setIsValid(false);
-    }
+    );
 
-    if (siparis["ek-malzeme"].length >= 4) {
-      setErrors({ ...errors, ["ek-malzeme"]: "" });
-    } else {
-      setErrors({ ...errors, ["ek-malzeme"]: errorMessages["ek-malzeme"] });
-    }
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      ["ek-malzeme"]: siparis["ek-malzeme"].length >= 4 ? "" : errorMessages["ek-malzeme"],
+    }));
   }, [siparis]);
 
   const countHandler = (event) => {
     const { id } = event.target;
-    if (id === "cikar") {
-      if (pieces == 1) {
-        setpieces(1);
-      } else {
-        setpieces((pieces) => pieces - 1);
-      }
-    } else if (id === "ekle") {
-      setpieces((pieces) => pieces + 1);
-    }
+    setpieces((prevPieces) =>
+      id === "cikar" ? (prevPieces === 1 ? 1 : prevPieces - 1) : prevPieces + 1
+    );
   };
 
   function handleInputChange(event) {
     let { name, value } = event.target;
 
     if (name === "ek-malzeme") {
-      if (siparis["ek-malzeme"].includes(value)) {
-        setSiparis({
-          ...siparis,
-          [name]: siparis["ek-malzeme"].filter((malzeme) => malzeme !== value),
-        });
-      } else {
-        setSiparis({
-          ...siparis,
-          [name]: [...siparis["ek-malzeme"], value],
-        });
-      }
+      setSiparis((prevSiparis) => ({
+        ...prevSiparis,
+        [name]: prevSiparis["ek-malzeme"].includes(value)
+          ? prevSiparis["ek-malzeme"].filter((malzeme) => malzeme !== value)
+          : [...prevSiparis["ek-malzeme"], value],
+      }));
     } else {
       setSiparis({ ...siparis, [name]: value });
     }
 
-    if (name === "isim") {
-      if (value.length >= 3) {
-        setErrors({ ...errors, [name]: "" });
-      } else {
-        setErrors({ ...errors, [name]: errorMessages.isim });
-      }
-    }
+    name === "isim" &&
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: value.length >= 3 ? "" : errorMessages.isim,
+      }));
 
-    if (name === "boyut" || name === "hamur") {
-      if (siparis.boyut !== "") {
-        setErrors({ ...errors, [name]: "" });
-      } else {
-        setErrors({ ...errors, [name]: errorMessages.boyut });
-      }
-    }
+    (name === "boyut" || name === "hamur") &&
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: siparis.boyut !== "" ? "" : errorMessages.boyut,
+      }));
   }
 
   siparis.secimler = siparis["ek-malzeme"].length * 5;
@@ -135,19 +115,15 @@ function SiparisFormu({ setUserChoices }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!isValid) return;
 
-    if (!isValid) {
-      return;
-    } else {
-      history.push("/siparis-ozeti");
-    }
+    history.push("/siparis-ozeti");
 
     axios
       .post("https://reqres.in/api/pizza", siparis)
       .then((response) => {
         console.log("RESPONSE", response.data);
         setUserChoices(response.data);
-        console.log(response);
       })
       .catch((error) => {
         console.log(error);

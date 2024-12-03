@@ -2,6 +2,8 @@ function Info() {
     return (
         <>
         <div className="content-div">
+          <img className="form-banner" src="Assets\Iteration-2-aseets\pictures\form-banner.png" alt="" />
+        <p className="yönlendirme" >Anasayfa-<strong>Sipariş Oluştur</strong></p>
           <h3>Position Absolute Acı Pizza</h3>
           <div className="content-info">
             <p className="content-ucret">85.50₺</p>
