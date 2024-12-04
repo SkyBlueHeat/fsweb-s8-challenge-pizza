@@ -6,7 +6,6 @@ import PizzaHamur from "../components/PizzaHamur";
 import EkMalzemeler from "../components/EkMalzemeler";
 import SiparisNotu from "../components/SiparisNotu";
 import UcretHesap from "../components/UcretHesap";
-import IsimAlani from "../components/İsimAlani";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -37,7 +36,7 @@ const errorMessages = {
 
 const pizza_ucreti = 85.5;
 
-const boyutlar = ["Küçük", "Orta", "Büyük"];
+const boyutlar = ["S", "M", "L"];
 
 const ekMalzemeler = [
   "Pepperoni",
@@ -53,6 +52,7 @@ const ekMalzemeler = [
   "Biber",
   "Ananas",
   "Kabak",
+  "Jambon",
 ];
 
 function SiparisFormu({ setUserChoices }) {
@@ -168,6 +168,7 @@ function SiparisFormu({ setUserChoices }) {
               {ekMalzemeler.map((malzeme, index) => {
                 return (
                   <EkMalzemeler
+                  id={"input-checkbox"}
                     className={
                       index >= 10 ? "data-cy-disabled" : "data-cy-not-disabled"
                     }
@@ -186,10 +187,6 @@ function SiparisFormu({ setUserChoices }) {
             {errors["ek-malzeme"] && (
               <p className="error-message">{errors["ek-malzeme"]}</p>
             )}
-          </div>
-          <div className="isim-alani">
-            <IsimAlani isim={siparis.isim} onChange={handleInputChange} />
-            {errors.isim && <p className="error-message">{errors.isim}</p>}
           </div>
           <div className="order-note">
             <SiparisNotu

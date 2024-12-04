@@ -9,6 +9,7 @@ export default function EkMalzemeler({
     <>
       <label className="malzeme">
         <input
+        
           className={className}
           disabled={disabled}
           type="checkbox"

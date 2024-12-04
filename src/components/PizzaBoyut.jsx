@@ -6,8 +6,15 @@ export default function PizzaBoyut({
 }) {
   return (
     <>
-      <label>
-        <input
+   
+
+
+<div class="checkbox-wrapper-56">
+      <label className="container-1" >
+   
+        <input 
+       
+        
           className={className}
           type="radio"
           name="boyut"
@@ -15,8 +22,10 @@ export default function PizzaBoyut({
           onChange={onChange}
           checked={checked}
         />
+        <div class="checkmark"></div>
         {boyut}
       </label>
+      </div>
     </>
   );
 }
