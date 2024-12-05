@@ -240,6 +240,7 @@ ul {
   display: block;
   border-radius: 0.3rem;
 }
+
 .dropdown-con{
  height: 56px;
  width: 258px;
@@ -249,9 +250,11 @@ ul {
  font-size:16px;
 
 
+
 }
 .dropdown-link{
-  background-color: #292929;
+  background-color: #FAF7F2;
+  border: none;
 }
 button {
   background: #fdc913;
@@ -303,7 +306,8 @@ input[type="checkbox"] {
  background-color: #ff0000;
   height: 40px;
   accent-color: #fdc913; 
-  border-radius: 50%;
+  border-radius: 500%;
+  
   
 }
 

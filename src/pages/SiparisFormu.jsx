@@ -17,7 +17,7 @@ const initialSiparis = {
   isim: "",
   boyut: "",
   hamur: "",
-  "ek-malzeme": [],
+  "ek-malzeme": [],//araya çevirdim
   "order-note": "",
   secimler: 0,
   toplam_ucret: 0,
@@ -103,8 +103,8 @@ function SiparisFormu({ setUserChoices }) {
       }));
   }
 
-  
-  const ekMalzemelerString = Array.isArray(siparis["ek-malzeme"]) 
+ 
+  const ekMalzemelerString = Array.isArray(siparis["ek-malzeme"]) //
     ? siparis["ek-malzeme"].join(", ") 
     : ""; 
 
@@ -174,6 +174,12 @@ function SiparisFormu({ setUserChoices }) {
                 return (
                   <EkMalzemeler
                   id={"input-checkbox"}
+                  sx={{
+                    '& .MuiSvgIcon-root': {
+                          fontSize: 70,
+                          borderRadius: 20
+                      }
+                  }}
                     className={
                       index >= 10 ? "data-cy-disabled" : "data-cy-not-disabled"
                     }

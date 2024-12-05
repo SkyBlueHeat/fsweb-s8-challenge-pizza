@@ -4,13 +4,13 @@ export default function EkMalzemeler({
   value,
   checked,
   className,
-  id,
+  sx,
 }) {
   return (
     <>
-      <label className="malzeme">
-        <input
-       
+      <label className="malzeme" >
+        <input style={{backgroundColor: "lightblue"}}
+      
           className={className}
           disabled={disabled}
           type="checkbox"
