@@ -1,5 +1,4 @@
-*::before,
-*:after {
+* {
   box-sizing: border-box;
 }
 
@@ -49,7 +48,7 @@ h3 {
   border-radius: 1rem;
   width: 100%;
   margin: 1rem;
-  aspect-ratio: 1.5/1;
+  aspect-ratio: 1.5;
 }
 
 .right-card-one {
@@ -73,7 +72,7 @@ h3 {
 }
 
 .main-container {
-  max-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,20 +81,24 @@ h3 {
 }
 
 ul {
+  
   display: flex;
- justify-content: center;
-  gap: 2.5rem;
   width: 100%;
-  flex-wrap: wrap;
-  flex-grow: 1;
-  padding: 0;
+
+  justify-content: center;
+  align-items:center ;
+  text-align: center;
+  gap: 2rem;
 }
 .ul1-link{
   text-decoration: none;
   color: #292929;
-  
-  
-  
+}
+.ul1-container{
+
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 .order-button {
   border: none;
@@ -106,7 +109,7 @@ ul {
 .ul1 {
   background: white;
   padding: 20px;
-  
+  position: relative;
   text-decoration: none;
 }
 
@@ -120,7 +123,7 @@ ul {
 #catchword {
   font-size: 4rem;
   color: white;
-  line-height: 4rem;
+  line-height: 4rem; 
   margin-top: 0;
   font-weight: lighter;
 }
@@ -200,6 +203,7 @@ ul {
 .boyut-sec h3,
 .hamur-sec h3 {
   margin-bottom: 0;
+  
 }
 
 .hamur-sec {
@@ -214,6 +218,7 @@ ul {
   width: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
+
   
 
 }
@@ -393,7 +398,7 @@ li {
 .tri {
   display: flex;
   gap: 1rem;
-  max-width: 100%;
+  max-width: 50%;
   color: white;
   justify-content: center;
   flex-wrap: wrap;
@@ -438,7 +443,7 @@ li {
   flex-direction: column;
   gap: 2rem;
   align-items: flex-start;
-  max-width: 60%;
+
 }
 
 .insta-photos {
@@ -637,7 +642,7 @@ h4 span {
   width: 300px;
   flex-wrap:wrap; /* Sığmayanların alt satıra geçmesini sağlar */
   gap: 10px; /* Aralarına boşluk koyar */
-
+  content: " ,";
   border-radius: 5px;
   padding: 8px 12px;
   font-size: 14px;
@@ -661,7 +666,6 @@ h4 span {
 
   .checkbox-wrapper-56 .container-1 input {
     background-color: #FAF7F2;
-
     opacity: 1;
     -webkit-appearance: none;
     cursor: pointer;
@@ -751,11 +755,7 @@ h4 span {
 }
 
 @media (min-width: 1100px) {
-  .tri {
-    width: 100%;
-    flex-wrap: nowrap;
-    gap: 0;
-  }
+  
   .left-card h2 {
     font-size: 5rem;
   }
@@ -771,12 +771,46 @@ h4 span {
     width: 30%;
   }
 }
-
+@media (min-width: 1460px) {
+  .tri{
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+}
+@media (max-width:1024px) {
+    .ul2{
+      width: 60%;
+      
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: .75rem;
+    }
+    .ul2 li {
+      height: 60px;
+    }
+}
+@media (max-width:962px) {
+  .ul1{
+    width: 100%;
+    
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 1rem;
+  }
+  .ul1 li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+ 
+  }
+}
 @media (max-width: 666px) {
   .footer-section {
     justify-content: flex-start;
   }
-
+  li
   .giris-btn {
     margin-bottom: 30rem;
   }
@@ -792,6 +826,7 @@ h4 span {
 
   .tri {
     width: 80%;
+    max-width: none;
   }
 
   .hesap-butonlari {

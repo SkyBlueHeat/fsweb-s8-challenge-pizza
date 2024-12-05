@@ -4,12 +4,13 @@ export default function EkMalzemeler({
   value,
   checked,
   className,
+  id,
 }) {
   return (
     <>
       <label className="malzeme">
         <input
-        
+       
           className={className}
           disabled={disabled}
           type="checkbox"

@@ -9,7 +9,7 @@ export default function PizzaBoyut({
    
 
 
-<div class="checkbox-wrapper-56">
+<div className="checkbox-wrapper-56">
       <label className="container-1" >
    
         <input 
@@ -22,7 +22,7 @@ export default function PizzaBoyut({
           onChange={onChange}
           checked={checked}
         />
-        <div class="checkmark"></div>
+        <div className="checkmark"></div>
         {boyut}
       </label>
       </div>

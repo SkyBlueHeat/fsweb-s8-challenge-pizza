@@ -3,6 +3,7 @@ import SiparisFormuHeader from "../components/Header";
 import SiparisFormuInfo from "../components/İnfo";
 import PizzaBoyut from "../components/PizzaBoyut";
 import PizzaHamur from "../components/PizzaHamur";
+import IsimAlani from "../components/İsimAlani";
 import EkMalzemeler from "../components/EkMalzemeler";
 import SiparisNotu from "../components/SiparisNotu";
 import UcretHesap from "../components/UcretHesap";
@@ -16,7 +17,7 @@ const initialSiparis = {
   isim: "",
   boyut: "",
   hamur: "",
-  "ek-malzeme": "",
+  "ek-malzeme": [],
   "order-note": "",
   secimler: 0,
   toplam_ucret: 0,
@@ -68,7 +69,6 @@ function SiparisFormu({ setUserChoices }) {
       siparis.isim.length >= 3 &&
       siparis["ek-malzeme"].length >= 4
     );
-
     setErrors((prevErrors) => ({
       ...prevErrors,
       ["ek-malzeme"]: siparis["ek-malzeme"].length >= 4 ? "" : errorMessages["ek-malzeme"],
@@ -101,13 +101,12 @@ function SiparisFormu({ setUserChoices }) {
         ...prevErrors,
         [name]: value.length >= 3 ? "" : errorMessages.isim,
       }));
-
-    (name === "boyut" || name === "hamur") &&
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [name]: siparis.boyut !== "" ? "" : errorMessages.boyut,
-      }));
   }
+
+  
+  const ekMalzemelerString = Array.isArray(siparis["ek-malzeme"]) 
+    ? siparis["ek-malzeme"].join(", ") 
+    : ""; 
 
   siparis.secimler = siparis["ek-malzeme"].length * 5;
   siparis.toplam_ucret = pieces * (siparis.secimler + pizza_ucreti);
@@ -119,8 +118,14 @@ function SiparisFormu({ setUserChoices }) {
 
     history.push("/siparis-ozeti");
 
+    
+    const updatedSiparis = {
+      ...siparis,
+      "ek-malzeme": ekMalzemelerString, 
+    };
+
     axios
-      .post("https://reqres.in/api/pizza", siparis)
+      .post("https://reqres.in/api/pizza", updatedSiparis)
       .then((response) => {
         console.log("RESPONSE", response.data);
         setUserChoices(response.data);
@@ -187,6 +192,10 @@ function SiparisFormu({ setUserChoices }) {
             {errors["ek-malzeme"] && (
               <p className="error-message">{errors["ek-malzeme"]}</p>
             )}
+          </div>
+          <div className="isim-alani ">
+            <IsimAlani  isim={siparis.isim} onChange={handleInputChange} />
+            {errors.isim && <p  className="error-message">{errors.isim}</p>}
           </div>
           <div className="order-note">
             <SiparisNotu

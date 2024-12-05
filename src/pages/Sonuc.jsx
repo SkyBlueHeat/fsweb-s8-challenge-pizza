@@ -20,14 +20,14 @@ function Sonuc({ userChoices }) {
             </p>
             <div className="malzemeler-container">
               <p >
-              Ek Malzemeler : <span><strong > {userChoices["ek-malzeme"]}, </strong></span>
+              Ek Malzemeler : <span><strong > {userChoices["ek-malzeme"]} </strong></span>
             </p>
             </div>
             
           </div>
         </div>
         <div className="price-container">
-          <h3>Sipariş Toplamı </h3>s
+          <h3>Sipariş Toplamı </h3>
           <div className="secim-harci">
            <strong><p>Seçimler :</p></strong> 
             <p>

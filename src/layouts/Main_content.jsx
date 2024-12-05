@@ -26,7 +26,7 @@ export default function MainContent() {
       </div>
       <section className="main-container">
         <div className="ul1-container">
-        <ul className="ul1">
+         <ul className="ul1">
           <li>
           <a href="" className="ul1-link">
             <img src="./Assets/iteration-2-aseets/icons/1.svg" />
