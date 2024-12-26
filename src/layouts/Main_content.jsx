@@ -1,5 +1,5 @@
 import { NavLink, useHistory } from "react-router-dom";
-import logo from '../../Assets\Iteration-1-assets\logo.svg'
+import logo from '../../Assets/Iteration-1-assets/logo.svg'
 
 export default function MainContent() {
   let history = useHistory();
